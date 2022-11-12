@@ -1,7 +1,7 @@
 import { ColorRing } from 'react-loader-spinner';
 import { LoaderBox } from './Loader.styled';
 
-export const Loader = () => {
+const Loader = () => {
   return (
     <LoaderBox>
       <ColorRing
@@ -12,3 +12,5 @@ export const Loader = () => {
     </LoaderBox>
   );
 };
+
+export default Loader;

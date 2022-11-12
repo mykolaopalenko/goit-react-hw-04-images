@@ -1,48 +1,48 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+// import { BsSearch } from 'react-icons/bs';
+import { Header, SearchForm, Button, Input } from './Searchbar.styled';
 
-import {
-  Searchbarstyle,
-  SearchForm,
-  SearchFormBtn,
-  ButtonLabel,
-  SearchFormInput,
-} from './Searchbar.styled';
+const Searchbar = ({ onSubmit }) => {
+  const [query, setQuery] = useState('');
 
-export class Searchbar extends Component {
-  state = { searchQuery: '' };
+  const handleChange = e => {
+    setQuery(e.target.value.toLowerCase());
+  };
 
-  searchformOnSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    this.props.onSubmit(this.state.searchQuery);
+    if (query.trim() === '') {
+      toast.error('Enter a search query!');
+      return;
+    }
+    onSubmit(query);
+    setQuery('');
   };
 
-  inputOnChange = e => {
-    this.setState({ searchQuery: e.currentTarget.value });
-  };
+  return (
+    <Header>
+      <SearchForm onSubmit={handleSubmit}>
+        <Button type="submit">Search</Button>
 
-  render() {
-    return (
-      <Searchbarstyle>
-        <SearchForm onSubmit={this.searchformOnSubmit}>
-          <SearchFormBtn type="submit">
-            <ButtonLabel>Search</ButtonLabel>
-          </SearchFormBtn>
-          <SearchFormInput
-            onChange={this.inputOnChange}
-            type="text"
-            autoComplete="off"
-            autoFocus
-            placeholder="Search images and photos"
-            value={this.state.searchQuery}
-          ></SearchFormInput>
-        </SearchForm>
-      </Searchbarstyle>
-    );
-  }
-}
+        <Input
+          name="query"
+          type="text"
+          autoComplete="off"
+          autoFocus
+          placeholder="Search images and photos"
+          onChange={handleChange}
+          value={query}
+        />
+      </SearchForm>
+    </Header>
+  );
+};
 
-SearchForm.propTypes = {
+Searchbar.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
+export default Searchbar;

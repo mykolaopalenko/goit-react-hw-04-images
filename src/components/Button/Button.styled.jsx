@@ -1,14 +1,16 @@
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 
-export const Button = styled.button`
+export const LoadMoreBtn = styled.button`
+  margin-top: 16px;
+  margin-bottom: 16px;
+  margin-left: 25px;
+  text-align: center;
   padding: 8px 16px;
-  margin: 25px;
   border-radius: 2px;
   background-color: #3f51b5;
   transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
   text-align: center;
-  display: flex;
-  justify-content: center;
+  display: inline-block;
   color: #fff;
   border: 0;
   text-decoration: none;
